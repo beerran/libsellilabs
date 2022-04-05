@@ -49,10 +49,10 @@ function Lib:LoopAuras(key, settings, allstates, processed)
     
     settings.show = settings.show and auraName
   
-    while auraName do                                            
+    while auraName do
         if auraName == key and settings.show then
             local state = self:GetNewState(
-              false,
+              true,
               auraDuration,
               auraExpiration,
               auraIcon,
@@ -62,7 +62,7 @@ function Lib:LoopAuras(key, settings, allstates, processed)
               settings.glow,
               settings.progress
             )
-            state.unit = "player"
+            state.unit = settings.unit
             state.unitBuffIndex = index
             state.absorbValue = settings.absorb and self.Utilities:GetAuraAbsorbValue(settings.unit, index) or nil
   

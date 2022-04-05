@@ -63,14 +63,12 @@ function Lib:Uptime(aura, allstates)
           if settingName == "type" then
               settings.type = settingValue == 1 and "buff" or "debuff"
           end
-          if settingName == "settings" then
-              for _, _ in pairs(settingValue) do
-                  settings.stacks = settingValue[1];
-                  settings.show = settingValue[2];
-                  settings.glow = settingValue[3];
-                  settings.progress = settingValue[4];
-                  settings.absorb = settingValue[5];
-              end
+          if settingName == "settings" then              
+              settings.stacks = settingValue[1];
+              settings.show = settingValue[2];
+              settings.glow = settingValue[3];
+              settings.progress = settingValue[4];
+              settings.absorb = settingValue[5];
           end
       end        
       
@@ -90,17 +88,23 @@ function Lib:Trinkets(aura, allstates)
 
     local processed = {}
     
-    for trinketName,value in pairs(trinkets) do
-        local settings = {
-            stacks = trinkets[trinketName][1],
-            absorb = trinkets[trinketName][2],
-            show = trinkets[trinketName][3],
-            glow = trinkets[trinketName][4],
-            progress = trinkets[trinketName][5]
-        }        
-        
-        self.State:LoopAuras(trinketName, settings, allstates, processed)              
+    for trinketName,value in pairs(trinkets) do         
+      local settings = {}
+      for settingName, settingValue in pairs(value) do
+          if settingName == "settings" then
+              settings = {
+                  stacks = settingValue[1],
+                  absorb = settingValue[2],
+                  show = settingValue[3],
+                  glow = settingValue[4],
+                  progress = settingValue[5],
+                  unit = "player"
+              }
+          end
+      end
+      self.State:LoopAuras(trinketName, settings, allstates, processed)
     end
+
     return true
 end
 
@@ -115,14 +119,12 @@ function Lib:Abilities(aura, allstates, event, eventSpellId)
               settings.ability = settingValue
           end
           if settingName == "settings" then
-              for _, _ in pairs(settingValue) do
-                  settings.stacks = settingValue[1];
-                  settings.show = settingValue[2];
-                  settings.glow = settingValue[3];
-                  settings.progress = settingValue[4];
-                  settings.sound = settingValue[5];
-                  settings.pulse = settingValue[6]
-              end
+              settings.stacks = settingValue[1];
+              settings.show = settingValue[2];
+              settings.glow = settingValue[3];
+              settings.progress = settingValue[4];
+              settings.sound = settingValue[5];
+              settings.pulse = settingValue[6]
           end
           if settingName == "sound" then
               settings.soundFile = settingValue
