@@ -1,0 +1,10 @@
+## Interface: 90200
+
+## Title: Lib: SelliLabs-1.0
+## Notes: WeakAura snippets and shared functionality
+## Author: Sellion @ Tarren Mill
+## X-Category: Library
+## Version: 1.0.0
+
+embeds.xml
+lib.xml
